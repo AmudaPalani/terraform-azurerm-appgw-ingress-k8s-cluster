@@ -120,7 +120,7 @@ variable "vm_user_name" {
 
 variable "public_ssh_key_path" {
   description = "Public key path for SSH."
-  default     = "~/.ssh/id_rsa.pub"
+  default     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCcl8SstzEq6kVlssNO2+s1oaOGqVWRL7P+UNUU7x0yN17tKMaomjc4pTvAyaXfZA8xaNnH7mMPPf5TfLk+DKYGl0FRyxxqETgKQZzFaHNFvIt+ae2LKZPzEPgZN2NICB+q0SQTWZR/VuyIptEs3UvDbawQ4w1yhgbazeBmV9P9w6TSXbcothtbSK19Oo6a+FE6IQEerJJCsvxHkPrXwgCduhNnlFV4iFVs6fjM0Ho0YXTyHhok9h46nfAfUv/7EWBioB+eFv+8jAPeBI71CTv63O1Grp6AN5Z27v54BbcfSZpEEuxBR2bfbnNhHPoT4SwY0jE2seqXiDO3h2yM10Bl"
 }
 
 variable "tags" {

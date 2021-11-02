@@ -75,7 +75,7 @@ resource "azurerm_application_gateway" "network" {
 
   gateway_ip_configuration {
     name      = "appGatewayIpConfig"
-    subnet_id = data.azurerm_subnet.appgwsubnet.id
+    subnet_id = azurerm_subnet.appgwsubnet.id
   }
 
   frontend_port {
@@ -129,7 +129,7 @@ resource "azurerm_application_gateway" "network" {
 }
 
 resource "azurerm_role_assignment" "ra1" {
-  scope                = data.azurerm_subnet.kubesubnet.id
+  scope                = azurerm_subnet.kubesubnet.id
   role_definition_name = "Network Contributor"
   principal_id         = var.aks_service_principal_object_id
 

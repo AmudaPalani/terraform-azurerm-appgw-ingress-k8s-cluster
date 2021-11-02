@@ -41,12 +41,14 @@ resource "azurerm_subnet" "kubesubnet" {
   name                 = var.aks_subnet_name
   virtual_network_name = azurerm_virtual_network.test.name
   resource_group_name  = data.azurerm_resource_group.rg.name
+  address_prefix = var.aks_subnet_address_prefix # Kubernetes Subnet Address prefix
 }
 
 resource "azurerm_subnet" "appgwsubnet" {
   name                 = "appgwsubnet" #Hardcoded to this name.
   virtual_network_name = azurerm_virtual_network.test.name
   resource_group_name  = data.azurerm_resource_group.rg.name
+  address_prefix = var.app_gateway_subnet_address_prefix
 }
 
 # Public Ip

@@ -131,7 +131,7 @@ resource "azurerm_application_gateway" "network" {
 resource "azurerm_role_assignment" "ra1" {
   scope                = azurerm_subnet.kubesubnet.id
   role_definition_name = "Network Contributor"
-  principal_id         = var.aks_service_principal_object_id
+  principal_id         = azurerm_kubernetes_cluster.test.kubelet_identity[0].object_id
 
   depends_on = [azurerm_virtual_network.test]
 }
@@ -139,7 +139,7 @@ resource "azurerm_role_assignment" "ra1" {
 resource "azurerm_role_assignment" "ra2" {
   scope                = azurerm_user_assigned_identity.testIdentity.id
   role_definition_name = "Managed Identity Operator"
-  principal_id         = var.aks_service_principal_object_id
+  principal_id         = azurerm_kubernetes_cluster.test.kubelet_identity[0].object_id
   depends_on           = [azurerm_user_assigned_identity.testIdentity]
 }
 
@@ -193,9 +193,8 @@ resource "azurerm_kubernetes_cluster" "test" {
     # dns_prefix     MISSING
   }
 
-  service_principal {
-    client_id     = var.aks_service_principal_app_id
-    client_secret = var.aks_service_principal_client_secret
+  identity {
+    type = "SystemAssigned"
   }
 
   network_profile {
@@ -210,4 +209,11 @@ resource "azurerm_kubernetes_cluster" "test" {
     azurerm_application_gateway.network,
   ]
   tags = var.tags
+}
+
+locals {
+  identity_list = [
+    azurerm_kubernetes_cluster.test.identity[0].principal_id,
+    azurerm_kubernetes_cluster.test.kubelet_identity[0].object_id
+  ]
 }
